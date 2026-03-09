@@ -1,5 +1,6 @@
-# MTR-ANTE
+# Trackstage
 
+Trackstage是一个正在开发中的项目，基于ANTE，添加了一些功能并优化了GUI逻辑。<br/>
 Aphrodite's Nemo's Transit Expansion (MTR-ANTE) 是一个基于Minecraft Transit Railway Mod的实验性功能扩展，目前仅支持MTR 3.1.2 ~ 3.2.2 版本，不支持4.0.0或其他版本。
 
 ## 支持

@@ -1,123 +1,125 @@
 plugins {
-	id "com.github.johnrengelman.shadow"
+    id "com.github.johnrengelman.shadow"
 }
 
 architectury {
-	platformSetupLoomIde()
-	fabric()
+    platformSetupLoomIde()
+    fabric()
 }
 
 repositories {
-	maven {
-		name = "TerraformersMC"
-		url = uri("https://maven.terraformersmc.com/releases")
-	}
+    maven {
+        name = "TerraformersMC"
+        url = uri("https://maven.terraformersmc.com/releases")
+    }
 }
 
 loom {
-	mixin {
-		defaultRefmapName = "mixins.mtrsteamloco_fabric.refmap.json"
-	}
-	accessWidenerPath = project(":common").loom.accessWidenerPath
+    mixin {
+        defaultRefmapName = "mixins.mtrsteamloco_fabric.refmap.json"
+    }
+    accessWidenerPath = project(":common").loom.accessWidenerPath
 }
 
 configurations {
-	common
-	shadowCommon
-	clothConfigJar
-	compileClasspath.extendsFrom common
-	runtimeClasspath.extendsFrom common
-	developmentFabric.extendsFrom common
+    common
+    shadowCommon
+    clothConfigJar
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
 }
 
 dependencies {
-	modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-	modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
-	implementation files("../checkouts/${minecraft_version}/mtr-fabric.jar")
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+    implementation files("../checkouts/${minecraft_version}/mtr-fabric.jar")
 
-	modApi("com.terraformersmc:modmenu:${rootProject.ext.mod_menu_version}") { transitive false }
+    modApi("com.terraformersmc:modmenu:${rootProject.ext.mod_menu_version}") { transitive false }
 
-	common(project(path: ":common", configuration: "namedElements")) { transitive false }
-	shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 
-	modApi("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") { transitive false }
-	modApi("me.shedaniel.cloth:basic-math:0.6.1") { transitive false }
-	clothConfigJar("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") { transitive false }
-	clothConfigJar("me.shedaniel.cloth:basic-math:0.6.1") { transitive false }
+    modApi("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") { transitive false }
+    modApi("me.shedaniel.cloth:basic-math:0.6.1") { transitive false }
+    clothConfigJar("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") { transitive false }
+    clothConfigJar("me.shedaniel.cloth:basic-math:0.6.1") { transitive false }
 }
 
 processResources {
-	inputs.property "version", project.version
+    inputs.property "version", project.version
 
-	filesMatching("fabric.mod.json") {
-		expand (
-			"version": project.version,
-			"minecraft_version": rootProject.supports_minecraft_version,
-			"mtr_min_version": rootProject.mtr_min_version
-		)
-	}
+    filesMatching("fabric.mod.json") {
+        expand(
+                "version": project.version,
+                "minecraft_version": rootProject.supports_minecraft_version,
+                "mtr_min_version": rootProject.mtr_min_version
+        )
+    }
 }
 
-shadowJar {
-	mergeServiceFiles() 
+afterEvaluate {
+    shadowJar {
+        mergeServiceFiles()
 
-	exclude "*.bmp"
-	exclude '**/*.kotlin_metadata'
-    exclude '**/*.kotlin_module'
-    exclude '**/*.kotlin_builtins'
+        exclude "*.bmp"
+        exclude '**/*.kotlin_metadata'
+        exclude '**/*.kotlin_module'
+        exclude '**/*.kotlin_builtins'
 
-	if (rootProject.ext.assetExcludeFont) {
-		exclude "assets/mtr/font/**"
-	}
+        if (rootProject.ext.assetExcludeFont) {
+            exclude "assets/mtr/font/**"
+        }
 
-	relocate 'de.javagl', 'vendor.cn.zbx1425.sowcerext.de.javagl'
-	// relocate 'org.mozilla', 'vendor.cn.zbx1425.mtrsteamloco.org.mozilla'
+        relocate 'de.javagl', 'vendor.cn.zbx1425.sowcerext.de.javagl'
+        // relocate 'org.mozilla', 'vendor.cn.zbx1425.mtrsteamloco.org.mozilla'
 
-	from project.configurations.clothConfigJar.files.collect {
-		return zipTree(it).matching { filter ->
-			filter.include { e ->
-				matchInnerClass e.path as String,
-						"me/shedaniel/clothconfig2",
-						"me/shedaniel/math",
-						"assets/cloth-config2"
-			}
-		}
-	}
+        from project.configurations.clothConfigJar.files.collect {
+            return zipTree(it).matching { filter ->
+                filter.include { e ->
+                    matchInnerClass e.path as String,
+                            "me/shedaniel/clothconfig2",
+                            "me/shedaniel/math",
+                            "assets/cloth-config2"
+                }
+            }
+        }
 
-	relocate "me.shedaniel", "cn.zbx1425.mtrsteamloco.vendor.me.shedaniel"
+        relocate "me.shedaniel", "cn.zbx1425.mtrsteamloco.vendor.me.shedaniel"
 
-	relocate 'com.github.stuxuhai', 'vendor.cn.zbx1425.mtrsteamloco.com.github.stuxuhai'
+        relocate 'com.github.stuxuhai', 'vendor.cn.zbx1425.mtrsteamloco.com.github.stuxuhai'
 
-	configurations = [project.configurations.shadowCommon]
-	archiveClassifier = "dev-shadow"
+        configurations = [project.configurations.shadowCommon]
+        archiveClassifier = "dev-shadow"
+    }
 }
 
 static boolean matchInnerClass(String path, String... names) {
-	names.any { name -> path.startsWith(name) }
+    names.any { name -> path.startsWith(name) }
 }
 
 remapJar {
-	input.set shadowJar.archiveFile
-	dependsOn shadowJar
-	archiveClassifier = null
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    archiveClassifier = null
 }
 
 components.java {
-	withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-		skip()
-	}
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
 }
 
 task moveFabricBuilds() {
-	doLast {
-		delete fileTree("../build").matching {
-			include "**/MTR-ANTE-fabric*"
-		}
-		copy {
-			from "build/libs"
-			into "../build"
-			exclude "*dev-shadow.jar"
-			rename "(.+)", "MTR-ANTE-\$1"
-		}
-	}
+    doLast {
+        delete fileTree("../build").matching {
+            include "**/MTR-ANTE-fabric*"
+        }
+        copy {
+            from "build/libs"
+            into "../build"
+            exclude "*dev-shadow.jar"
+            rename "(.+)", "MTR-ANTE-\$1"
+        }
+    }
 }

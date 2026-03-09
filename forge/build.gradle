@@ -54,37 +54,39 @@ processResources {
 	}
 }
 
-shadowJar {
-	mergeServiceFiles()
+afterEvaluate {
+	shadowJar {
+		mergeServiceFiles()
 
-	exclude "fabric.mod.json"
-	exclude "*.bmp"
-	exclude '**/*.kotlin_metadata'
-    exclude '**/*.kotlin_module'
-    exclude '**/*.kotlin_builtins'
+		exclude "fabric.mod.json"
+		exclude "*.bmp"
+		exclude '**/*.kotlin_metadata'
+		exclude '**/*.kotlin_module'
+		exclude '**/*.kotlin_builtins'
 
-	if (rootProject.ext.assetExcludeFont) {
-		exclude "assets/mtr/font/**"
-	}
+		if (rootProject.ext.assetExcludeFont) {
+			exclude "assets/mtr/font/**"
+		}
 
-	relocate 'de.javagl', 'vendor.cn.zbx1425.sowcerext.de.javagl'
-	relocate 'com.github.stuxuhai', 'vendor.cn.zbx1425.mtrsteamloco.com.github.stuxuhai'
+		relocate 'de.javagl', 'vendor.cn.zbx1425.sowcerext.de.javagl'
+		relocate 'com.github.stuxuhai', 'vendor.cn.zbx1425.mtrsteamloco.com.github.stuxuhai'
 
-	from project.configurations.clothConfigJar.files.collect {
-		return zipTree(it).matching { filter ->
-			filter.include { e ->
-				matchInnerClass e.path as String,
-						"me/shedaniel/clothconfig2",
-						"me/shedaniel/math",
-						"assets/cloth-config2"
+		from project.configurations.clothConfigJar.files.collect {
+			return zipTree(it).matching { filter ->
+				filter.include { e ->
+					matchInnerClass e.path as String,
+							"me/shedaniel/clothconfig2",
+							"me/shedaniel/math",
+							"assets/cloth-config2"
+				}
 			}
 		}
+
+		relocate "me.shedaniel", "cn.zbx1425.mtrsteamloco.vendor.me.shedaniel"
+
+		configurations = [project.configurations.shadowCommon]
+		archiveClassifier = "dev-shadow"
 	}
-
-	relocate "me.shedaniel", "cn.zbx1425.mtrsteamloco.vendor.me.shedaniel"
-
-	configurations = [project.configurations.shadowCommon]
-	archiveClassifier = "dev-shadow"
 }
 
 static boolean matchInnerClass(String path, String... names) {
