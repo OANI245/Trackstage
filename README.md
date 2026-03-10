@@ -12,12 +12,12 @@ Aphrodite's Nemo's Transit Expansion (MTR-ANTE) 是一个基于Minecraft Transit
 
 ## 构建
 
-在执行`build`任务前须先执行`setupLibrary`，可以用类似-PbuildVersion="1.18.2"参数指定版本(1.17.1 1.18.2 1.19.2 1.19.3 1.19.4 1.20.1)。
-以1.18.2为例，  
+在执行`build`任务前须先执行`setupLibrary`，可以用类似-PbuildVersion="`<version>`"参数指定版本(1.17.1 1.18.2 1.19.4 1.20.1 1.21.1)，默认为1.20.1。
+以1.21.1为例，  
 第一次构建前执行：  
 
-- `./gradlew setupLibrary -PbuildVersion="1.18.2"`   
+- `./gradlew setupLibrary -PbuildVersion="1.21.1"`   
 
 每次构建时执行：  
 
-- `./gradlew build -PbuildVersion="1.18.2"`  
+- `./gradlew build -PbuildVersion="1.21.1"`  

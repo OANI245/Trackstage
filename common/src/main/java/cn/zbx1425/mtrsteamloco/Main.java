@@ -53,15 +53,6 @@ public class Main {
 	}
 
 	public static final RegistryObject<Block> BLOCK_DEPARTURE_BELL = new RegistryObject<>(BlockDepartureBell::new);
-
-	public static final RegistryObject<Block> BLOCK_EYE_CANDY = new RegistryObject<>(BlockEyeCandy::new);
-	public static final RegistryObject<BlockEntityType<BlockEyeCandy.BlockEntityEyeCandy>>
-			BLOCK_ENTITY_TYPE_EYE_CANDY = new RegistryObject<>(() ->
-			RegistryUtilities.getBlockEntityType(
-					BlockEyeCandy.BlockEntityEyeCandy::new,
-					BLOCK_EYE_CANDY.get()
-			));
-	public static final RegistryObject<Item> ITEM_EYE_CANDY = new RegistryObject<>(() -> new BlockItemEyeCandy(BLOCK_EYE_CANDY.get()));
 	
 	public static final RegistryObject<Block> BLOCK_DIRECT_NODE = new RegistryObject<>(BlockDirectNode::new);
 	public static final RegistryObject<BlockEntityType<BlockDirectNode.BlockEntityDirectNode>>
@@ -72,8 +63,6 @@ public class Main {
 			));
 	public static final RegistryObject<Item> ITEM_DIRECT_NODE = new RegistryObject<>(() -> new BlockItemDirectNode(CreativeModeTabs.CORE, BLOCK_DIRECT_NODE.get()));
 
-	public static final RegistryObject<ItemWithCreativeTabBase> BRIDGE_CREATOR_1 = new RegistryObject<>(() -> new ItemBridgeCreator(1));
-	public static final RegistryObject<ItemWithCreativeTabBase> COMPOUND_CREATOR = new RegistryObject<>(() -> new CompoundCreator());
 	public static final RegistryObject<ItemWithCreativeTabBase> DISPLACEMENT_TOOL = new RegistryObject<>(() -> new DisplacementTool());
 	public static final RegistryObject<ItemWithCreativeTabBase> RAIL_PATH_EDITOR = new RegistryObject<>(() -> new RailPathEditor());
 	public static final RegistryObject<ItemWithCreativeTabBase> ROUTE_PATH_CREATOR = new RegistryObject<>(() -> new RoutePathCreator());
@@ -94,7 +83,7 @@ public class Main {
 	public static SimpleParticleType PARTICLE_STEAM_SMOKE;
 
 	public static void init(RegistriesWrapper registries) {
-		LOGGER.info("MTR-ANTE " + BuildConfig.MOD_VERSION + " built at "
+		LOGGER.info("TS " + BuildConfig.MOD_VERSION + " built at "
 				+ DateTimeFormatter.ISO_DATE_TIME.withZone(ZoneId.systemDefault()).format(BuildConfig.BUILD_TIME));
 		if (enableRegistry) {
 			REGISTERIES = registries;
