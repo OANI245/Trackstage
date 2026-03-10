@@ -9,6 +9,8 @@ dependencies {
 	modApi "${rootProject.architectury_id}:architectury:${rootProject.architectury_version}"
 
 	modApi("me.shedaniel.cloth:cloth-config:${rootProject.cloth_config_version}") { transitive = false }
+
+	implementation "maven.modrinth:minecraft-transit-railway:FORGE-4.0.3+${rootProject.minecraft_version}"
 }
 
 architectury {

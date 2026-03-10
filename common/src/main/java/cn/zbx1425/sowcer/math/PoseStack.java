@@ -30,7 +30,7 @@ public class PoseStack implements Posture {
     }
 
     public void mul(Quaternionf rotation) {
-        impl.mulPose(rotation.asMoj());
+        impl.mulPose(rotation.asVanilla());
     }
 
     public Pose last() {

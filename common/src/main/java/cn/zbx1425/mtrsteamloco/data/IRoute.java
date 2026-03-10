@@ -1,6 +1,6 @@
 package cn.zbx1425.mtrsteamloco.data;
 
-import mtr.path.PathData;
+import org.mtr.core.data.PathData;
 
 import java.util.List;
 

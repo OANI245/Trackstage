@@ -1,6 +1,7 @@
 package cn.zbx1425.mtrsteamloco.block;
 
 import cn.zbx1425.mtrsteamloco.Main;
+import cn.zbx1425.mtrsteamloco.mvapi.MVSimpleCodecHorizontalDirectionalBlock;
 import cn.zbx1425.mtrsteamloco.network.PacketScreen;
 import cn.zbx1425.mtrsteamloco.scripting.eyecandy.EyeCandyScriptContext;
 import cn.zbx1425.sowcer.math.Vector3f;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -70,7 +72,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.function.Supplier;
 
-public class BlockEyeCandy extends BlockDirectionalMapper implements EntityBlockMapper {
+public class BlockEyeCandy extends MVSimpleCodecHorizontalDirectionalBlock implements EntityBlock {
     
     public static final EnumProperty<TicketSystem.EnumTicketBarrierOpen> OPEN = BlockTicketBarrier.OPEN;
     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL;

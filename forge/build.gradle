@@ -30,6 +30,7 @@ configurations {
 dependencies {
 	forge "net.minecraftforge:forge:${rootProject.forge_version}"
 	modApi "${rootProject.architectury_id}:architectury-forge:${rootProject.architectury_version}"
+	modImplementation "maven.modrinth:minecraft-transit-railway:FORGE-4.0.3+${rootProject.minecraft_version}"
 
 	common(project(path: ":common", configuration: "namedElements")) { transitive false }
 	shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

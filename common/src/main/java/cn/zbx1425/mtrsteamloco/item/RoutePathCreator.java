@@ -34,12 +34,13 @@ import io.netty.buffer.Unpooled;
 import cn.zbx1425.mtrsteamloco.network.PacketScreen;
 import net.minecraft.server.level.ServerPlayer;
 import cn.zbx1425.mtrsteamloco.mixin.PathDataAccessor;
+import org.mtr.mod.item.ItemBrush;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class RoutePathCreator extends ItemWithCreativeTabBase {
+public class RoutePathCreator extends ItemBrush {
     public RoutePathCreator() {
         super(
             CreativeModeTabs.CORE, p -> p.stacksTo(1)

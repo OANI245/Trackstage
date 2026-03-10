@@ -1,12 +1,12 @@
 package cn.zbx1425.mtrsteamloco.mixin;
 
-import mtr.client.ClientCache;
+import org.mtr.mod.client.DynamicTextureCache;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.awt.*;
 
-@Mixin(value = ClientCache.class, remap = false)
+@Mixin(value = DynamicTextureCache.class, remap = false)
 public interface ClientCacheAccessor {
 
     @Accessor

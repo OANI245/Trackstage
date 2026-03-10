@@ -13,5 +13,5 @@ include("forge")
 
 // include("rhino")
 
-rootProject.name = "MtrSteamLoco"
+rootProject.name = "TS"
 

@@ -1,8 +1,6 @@
 package cn.zbx1425.mtrsteamloco;
 
-import mtr.CreativeModeTabs;
-import mtr.RegistryObject;
-import mtr.item.ItemWithCreativeTabBase;
+import cn.zbx1425.mtrsteamloco.registries.RegistryObject;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;

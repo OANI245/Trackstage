@@ -1,6 +1,6 @@
 package cn.zbx1425.mtrsteamloco.data;
 
-import mtr.mappings.Text;
+import cn.zbx1425.mtrsteamloco.mvapi.MVComponent;
 import net.minecraft.network.chat.Component;
 import me.shedaniel.clothconfig2.impl.builders.StringFieldBuilder;
 import me.shedaniel.clothconfig2.gui.entries.*;
@@ -268,7 +268,7 @@ public interface ConfigResponder {
         public double max;
         public int step;    
         public Function<Double, Optional<Component[]>> tooltipSupplier = str -> Optional.empty();
-        public Function<Double, Component> textGetter = str -> Text.literal(String.format("%.2f", str));
+        public Function<Double, Component> textGetter = str -> MVComponent.text(String.format("%.2f", str));
         public Consumer<Double> saveConsumer = num -> {};
         public boolean requireRestart = false;
 
@@ -388,13 +388,13 @@ public interface ConfigResponder {
                     ConfigResponder responder = customResponders.get(key);
                     hasResponders.addAll(responder.getListEntries(customConfigs, builder, screenSupplier));
                 } else {
-                    noResponders.add(builder.startTextDescription(Text.literal(key + " : " + customConfigs.get(key))).build());
+                    noResponders.add(builder.startTextDescription(MVComponent.text(key + " : " + customConfigs.get(key))).build());
                 }
             }
         }
         List<AbstractConfigListEntry> entries = new ArrayList<>();
         if (!hasResponders.isEmpty()) {
-            entries.add(builder.startTextDescription(Text.translatable("gui.mtrsteamloco.custom_config.editable")).build());
+            entries.add(builder.startTextDescription(MVComponent.translatable("gui.mtrsteamloco.custom_config.editable")).build());
             entries.addAll(hasResponders);
         }
         /* if (!noResponders.isEmpty()) {

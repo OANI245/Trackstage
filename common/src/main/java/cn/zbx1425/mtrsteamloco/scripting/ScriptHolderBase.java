@@ -67,7 +67,7 @@ public abstract class ScriptHolderBase {
     }
 
     private static final Set<String> ALLOWED_PACKAGES = Set.of(
-        "java.awt", "java.util", "mtr"
+        "java.awt", "java.util", "mtr", "org.mtr.mod", "cn.zbx1425.mtrsteamloco.mvapi.mtr3port"
     );
 
     public void load(

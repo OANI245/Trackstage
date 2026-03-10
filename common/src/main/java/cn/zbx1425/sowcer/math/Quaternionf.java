@@ -3,8 +3,9 @@ package cn.zbx1425.sowcer.math;
 #if MC_VERSION < "11903"
 import com.mojang.math.Quaternion;
 #else 
-import org.joml.AxisAngle4f;
 #endif
+
+import com.mojang.math.Quaternion;
 
 public class Quaternionf{
     public Quaternionf() {
@@ -126,7 +127,7 @@ public class Quaternionf{
         set(i(), j(), k(), r);
     }
 
-    public Quaternion asMoj() {
+    public Quaternion asVanilla() {
         return impl;
     }
 #endif

@@ -44,7 +44,7 @@ public class ScriptResourceUtil {
 
     protected static Context activeContext;
     protected static final Stack<ResourceLocation> scriptLocationStack = new Stack<>();
-    protected static final Logger LOGGER = LoggerFactory.getLogger("MTR-ANTE JS");
+    protected static final Logger LOGGER = LoggerFactory.getLogger("Trackstage JavaScript Processor");
 
     public static final boolean ANTE_FLAG = true;
 

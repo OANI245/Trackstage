@@ -1,8 +1,8 @@
 package cn.zbx1425.mtrsteamloco.block;
 
 import cn.zbx1425.mtrsteamloco.Main;
-import mtr.block.IBlock;
-import mtr.mappings.BlockDirectionalMapper;
+import cn.zbx1425.mtrsteamloco.mvapi.MVSimpleCodecHorizontalDirectionalBlock;
+import cn.zbx1425.mtrsteamloco.mvapi.mtr3port.block.MVBlockHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -24,7 +24,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class BlockDepartureBell extends BlockDirectionalMapper {
+public class BlockDepartureBell extends MVSimpleCodecHorizontalDirectionalBlock {
 
     public BlockDepartureBell() {
         super(
@@ -46,7 +46,7 @@ public class BlockDepartureBell extends BlockDirectionalMapper {
         } else {
             final BlockState state = ctx.getLevel().getBlockState(ctx.getClickedPos().relative(oppositeFace));
             if (state.getBlock() instanceof BlockDepartureBell) {
-                facing = IBlock.getStatePropertySafe(state, FACING);
+                facing = MVBlockHelper.getStatePropertySafe(state, FACING);
             } else {
                 facing = ctx.getHorizontalDirection();
             }
@@ -56,7 +56,7 @@ public class BlockDepartureBell extends BlockDirectionalMapper {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext collisionContext) {
-        return IBlock.getVoxelShapeByDirection(4, 3, 0, 12, 11, 3, IBlock.getStatePropertySafe(state, FACING));
+        return MVBlockHelper.getVoxelShapeByDirection(4, 3, 0, 12, 11, 3, MVBlockHelper.getStatePropertySafe(state, FACING));
     }
 
     @Override

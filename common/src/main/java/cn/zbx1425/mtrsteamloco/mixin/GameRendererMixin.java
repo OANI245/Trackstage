@@ -11,6 +11,7 @@ import mtr.client.ClientData;
 import cn.zbx1425.mtrsteamloco.mixin.TrainAccessor;
 import cn.zbx1425.mtrsteamloco.mixin.RenderTrainsAccessor;
 
+import org.mtr.mod.InitClient;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -95,8 +96,8 @@ public class GameRendererMixin {
         if (client == null) return;
         Level world = client.level;
         if (world == null) return;
-		final float lastFrameDuration = MTRClient.getLastFrameDuration();
-		final float newLastFrameDuration = client.isPaused() || RenderTrainsAccessor.getLastRenderedTick() == MTRClient.getGameTick() ? 0 : lastFrameDuration;
+		final float lastFrameDuration = InitClient.getLastFrameDuration();
+		final float newLastFrameDuration = client.isPaused() || RenderTrainsAccessor.getLastRenderedTick() == InitClient.getGameTick() ? 0 : lastFrameDuration;
         ClientData.TRAINS.forEach(train -> {
             // ((TrainAccessor) train).invokeSimulateTrain(world, newLastFrameDuration, null);
         });

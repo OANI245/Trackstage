@@ -1,7 +1,5 @@
 package cn.zbx1425.mtrsteamloco.data;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.world.phys.Vec3;
 import com.mojang.blaze3d.vertex.PoseStack;
 import cn.zbx1425.mtrsteamloco.ClientConfig;
 import cn.zbx1425.sowcer.math.*;
@@ -27,7 +25,7 @@ public class Rolling {
         if (!ClientConfig.enableRolling) return;
         if (rotation.isIdentity()) return;
         
-        poseStack.mulPose(getRollQuaternion(true).asMoj());
+        poseStack.mulPose(getRollQuaternion(true).asVanilla());
     }
 
     public static Vector3f applyRolling(Vector3f pos, float eyeHeight) {

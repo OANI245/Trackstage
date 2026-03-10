@@ -3,7 +3,7 @@ package cn.zbx1425.mtrsteamloco.data;
 import java.util.*;
 import java.util.function.Function;
 
-import mtr.mappings.Text;
+import cn.zbx1425.mtrsteamloco.mvapi.MVComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
@@ -16,7 +16,7 @@ public class Tree<T> {
         
         public Node(String key, String name, Node<T> parent) {
             this.key = key;
-            this.name = Text.translatable(name);
+            this.name = MVComponent.translatable(name).copy();
             this.parent = parent;
         }
 
@@ -30,7 +30,7 @@ public class Tree<T> {
             MutableComponent result = name.copy();
             Node<T> current = parent;
             while (current!= null) {
-                result = current.name.copy().append(Text.literal("/")).append(result);
+                result = current.name.copy().append(MVComponent.text("/")).append(result);
                 current = current.parent;
             }
             return result;
@@ -101,12 +101,12 @@ public class Tree<T> {
             }
             for (Branch<T> branch : branches.values()) {
                 if (Collections.frequency(usedNames, branch.name.getString()) > 1) {
-                    branch.name.append(Text.literal("(" + branch.key + ")"));
+                    branch.name.append(MVComponent.text("(" + branch.key + ")"));
                 }
             }
             for (Data<T> leaf : leaves.values()) {
                 if (Collections.frequency(usedNames, leaf.name.getString()) > 1) {
-                    leaf.name.append(Text.literal("(" + leaf.key + ")"));
+                    leaf.name.append(MVComponent.text("(" + leaf.key + ")"));
                 }
             }
         }
@@ -139,7 +139,7 @@ public class Tree<T> {
 
             for (Data<T> data : result.values()) {
                 if (Collections.frequency(usedNames, data.name.getString()) > 1) {
-                    data.name.append(Text.literal("(" + data.key + ")"));
+                    data.name.append(MVComponent.text("(" + data.key + ")"));
                 }
             }
 

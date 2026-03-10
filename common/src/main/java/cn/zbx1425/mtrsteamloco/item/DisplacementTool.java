@@ -46,11 +46,12 @@ import mtr.CreativeModeTabs;
 import cn.zbx1425.mtrsteamloco.mixin.RailwayDataAccessor;
 import cn.zbx1425.mtrsteamloco.mixin.RailAccessor;
 import net.minecraft.server.level.ServerLevel;
+import org.mtr.mod.item.ItemBrush;
 
 import java.util.*;
 import java.io.*;
 
-public class DisplacementTool extends ItemWithCreativeTabBase {
+public class DisplacementTool extends ItemBrush {
 
 
     public DisplacementTool() {

@@ -3,9 +3,8 @@ package cn.zbx1425.mtrsteamloco;
 import cn.zbx1425.mtrsteamloco.block.*;
 import cn.zbx1425.mtrsteamloco.item.*;
 import cn.zbx1425.mtrsteamloco.network.*;
+import cn.zbx1425.mtrsteamloco.registries.RegistryObject;
 import com.google.gson.JsonParser;
-import mtr.CreativeModeTabs;
-import mtr.RegistryObject;
 import mtr.item.ItemBridgeCreator;
 import mtr.item.ItemWithCreativeTabBase;
 import mtr.mappings.BlockEntityMapper;
@@ -16,6 +15,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import org.mtr.mod.item.ItemBrush;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import mtr.mappings.Text;
@@ -28,9 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import java.net.URISyntaxException;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Locale;
-import java.util.function.BiConsumer;
 
 public class Main {
 
@@ -63,9 +61,9 @@ public class Main {
 			));
 	public static final RegistryObject<Item> ITEM_DIRECT_NODE = new RegistryObject<>(() -> new BlockItemDirectNode(CreativeModeTabs.CORE, BLOCK_DIRECT_NODE.get()));
 
-	public static final RegistryObject<ItemWithCreativeTabBase> DISPLACEMENT_TOOL = new RegistryObject<>(() -> new DisplacementTool());
-	public static final RegistryObject<ItemWithCreativeTabBase> RAIL_PATH_EDITOR = new RegistryObject<>(() -> new RailPathEditor());
-	public static final RegistryObject<ItemWithCreativeTabBase> ROUTE_PATH_CREATOR = new RegistryObject<>(() -> new RoutePathCreator());
+	public static final RegistryObject<ItemBrush> DISPLACEMENT_TOOL = new RegistryObject<>(() -> new DisplacementTool());
+	public static final RegistryObject<ItemBrush> RAIL_PATH_EDITOR = new RegistryObject<>(() -> new RailPathEditor());
+	public static final RegistryObject<ItemBrush> ROUTE_PATH_CREATOR = new RegistryObject<>(() -> new RoutePathCreator());
 	public static RegistriesWrapper REGISTERIES;
 
 #if MC_VERSION <= "12000"
@@ -91,9 +89,6 @@ public class Main {
 		#if MC_VERSION >= "12000"
 			registries.registerCreativeModeTab("eye_candy", EYE_CANDY_TAB);
 		#endif
-			registries.registerItem("eye_candy", ITEM_EYE_CANDY, EYE_CANDY_TAB);
-			registries.registerBlock("eye_candy", BLOCK_EYE_CANDY);
-			registries.registerBlockEntityType("eye_candy", BLOCK_ENTITY_TYPE_EYE_CANDY);
 
 			registries.registerBlockAndItem("departure_bell", BLOCK_DEPARTURE_BELL, CreativeModeTabs.RAILWAY_FACILITIES);
 
@@ -101,8 +96,6 @@ public class Main {
 			registries.registerBlockEntityType("direct_node", BLOCK_ENTITY_TYPE_DIRECT_NODE);
 			registries.registerItem("direct_node", ITEM_DIRECT_NODE, CreativeModeTabs.CORE);
 
-			registries.registerItem("bridge_creator_1", BRIDGE_CREATOR_1);
-			registries.registerItem("compound_creator", COMPOUND_CREATOR);
 			registries.registerItem("displacement_tool", DISPLACEMENT_TOOL);
 			registries.registerItem("rail_path_editor", RAIL_PATH_EDITOR);
 			registries.registerItem("route_path_creator", ROUTE_PATH_CREATOR);

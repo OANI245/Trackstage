@@ -23,10 +23,11 @@ import mtr.data.RailType;
 import mtr.data.RailwayData;
 import mtr.item.ItemWithCreativeTabBase;
 import mtr.mappings.Text;
+import org.mtr.mod.item.ItemBrush;
 
 import java.util.*;
 
-public class RailPathEditor extends ItemWithCreativeTabBase {
+public class RailPathEditor extends ItemBrush {
 
     public RailPathEditor() {
         super(

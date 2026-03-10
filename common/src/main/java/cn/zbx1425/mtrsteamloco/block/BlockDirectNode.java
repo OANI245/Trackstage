@@ -1,20 +1,16 @@
 package cn.zbx1425.mtrsteamloco.block;
 
 import cn.zbx1425.mtrsteamloco.Main;
-import mtr.block.BlockNode;
+import cn.zbx1425.mtrsteamloco.mvapi.MVBlockEntity;
 import net.minecraft.world.level.Level;
-import mtr.mappings.EntityBlockMapper;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import org.jetbrains.annotations.NotNull;
-import mtr.mappings.BlockEntityClientSerializableMapper;
 import net.minecraft.nbt.CompoundTag;
-import mtr.mappings.BlockEntityMapper;
 import net.minecraft.world.level.block.state.BlockState;
-import mtr.data.RailAngle;
 import net.minecraft.core.BlockPos;
 import cn.zbx1425.mtrsteamloco.data.RailAngleExtra;
 import mtr.data.Rail;
-import mtr.data.TransportMode;
 import net.minecraft.server.level.ServerLevel;
 import cn.zbx1425.mtrsteamloco.network.PacketUpdateBlockEntity;
 import mtr.data.RailwayData;
@@ -23,27 +19,29 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import mtr.packet.PacketTrainDataGuiServer;
 import cn.zbx1425.mtrsteamloco.data.RailExtraSupplier;
+import org.mtr.core.data.TransportMode;
+import org.mtr.mod.block.BlockNode;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class BlockDirectNode extends BlockNode implements EntityBlockMapper {
+public class BlockDirectNode extends BlockNode implements EntityBlock {
 
     public BlockDirectNode() {
         super(TransportMode.TRAIN);
     }
 
     @Override
-    public RenderShape getRenderShape(@NotNull BlockState blockState) {
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState blockState) {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
-	public BlockEntityMapper createBlockEntity(BlockPos pos, BlockState state) {
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new BlockEntityDirectNode(pos, state);
 	}
 
-    public static class BlockEntityDirectNode extends BlockEntityClientSerializableMapper {
+    public static class BlockEntityDirectNode extends MVBlockEntity {
         private double angle = -114514F;
         private RailAngle railAngle = null;
 

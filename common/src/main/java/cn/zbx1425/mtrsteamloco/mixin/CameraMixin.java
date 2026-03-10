@@ -15,14 +15,12 @@ import org.joml.Quaternionf;
 import com.mojang.math.Quaternion;
 #endif
 
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(Camera.class)
@@ -58,7 +56,7 @@ public abstract class CameraMixin {
         Vector3f pos = new Vector3f(getPosition());
         pos = Rolling.applyRolling(pos, eyeHeight);
         setPosition(pos.toVec3());
-        roll = Rolling.getRollQuaternion().asMoj();
+        roll = Rolling.getRollQuaternion().asVanilla();
     }
 
 #if MC_VERSION >= "11903"

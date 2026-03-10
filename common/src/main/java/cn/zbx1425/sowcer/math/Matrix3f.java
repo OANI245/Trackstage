@@ -95,7 +95,7 @@ public class Matrix3f implements Posture{
     }
 
     public Matrix3f(Quaternionf q) {
-        this.impl = new com.mojang.math.Matrix3f(q.asMoj());
+        this.impl = new com.mojang.math.Matrix3f(q.asVanilla());
     }
 
     public Matrix3f(Matrix4f m) {
@@ -119,7 +119,7 @@ public class Matrix3f implements Posture{
     }
 
     public void multiply(Quaternionf q) {
-        this.impl.mul(q.asMoj());
+        this.impl.mul(q.asVanilla());
     }
 
     public void add(Matrix3f other) {

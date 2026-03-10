@@ -1,9 +1,9 @@
 package cn.zbx1425.mtrsteamloco.data;
 
 import net.minecraft.core.BlockPos;
-import mtr.data.Rail;
-import mtr.data.RailType;
 import net.minecraft.util.Mth;
+import org.mtr.core.data.Rail;
+import org.mtr.mod.data.RailType;
 
 import java.util.Map;
 import java.util.List;
@@ -76,7 +76,7 @@ public interface RailExtraSupplier {
 
     static float getVTheta(Rail rail, double verticalCurveRadius) {
         double H = Math.abs(((RailExtraSupplier) rail).getHeight());
-        double L = rail.getLength();
+        double L = rail.railMath.getLength();
         double R = verticalCurveRadius;
         return 2 * (float) Mth.atan2(Math.sqrt(H * H - 4 * R * H + L * L) - L, H - 4 * R);
     }

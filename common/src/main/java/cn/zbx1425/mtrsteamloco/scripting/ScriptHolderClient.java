@@ -70,7 +70,7 @@ public class ScriptHolderClient extends ScriptHolderBase {
         inject(DynamicModelHolder.class, "DynamicModelHolder");
 
         inject(ClientData.class, "MTRClientData");
-        inject(IBlock.class, "IBlock");
+        inject(IBlock.class, "MVBlockHelper");
         inject(UtilitiesClient.class, "UtilitiesClient");
         inject(IDrawing.class, "IDrawing");
 
@@ -116,7 +116,7 @@ public class ScriptHolderClient extends ScriptHolderBase {
         injects.put("DynamicModelHolder", DynamicModelHolder.class);
 
         injects.put("MTRClientData", ClientData.class);
-        injects.put("IBlock", IBlock.class);
+        injects.put("MVBlockHelper", MVBlockHelper.class);
         injects.put("UtilitiesClient", UtilitiesClient.class);
         injects.put("IDrawing", IDrawing.class);
 

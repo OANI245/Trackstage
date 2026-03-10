@@ -1,7 +1,5 @@
 package cn.zbx1425.sowcer.math;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 public class Matrix4f implements Posture {
@@ -180,7 +178,7 @@ public class Matrix4f implements Posture {
     }
 
     public void multiply(Quaternionf q) {
-        impl.multiply(q.asMoj());
+        impl.multiply(q.asVanilla());
     }
 
     public void store(FloatBuffer buffer) {

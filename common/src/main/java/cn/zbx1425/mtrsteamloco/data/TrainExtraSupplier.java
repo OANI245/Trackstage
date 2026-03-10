@@ -1,8 +1,5 @@
 package cn.zbx1425.mtrsteamloco.data;
 
-import mtr.data.Rail;
-import mtr.data.Train;
-
 import java.util.Map;
 
 public interface TrainExtraSupplier {

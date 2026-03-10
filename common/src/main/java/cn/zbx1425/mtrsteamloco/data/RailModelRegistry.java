@@ -2,6 +2,7 @@ package cn.zbx1425.mtrsteamloco.data;
 
 import cn.zbx1425.mtrsteamloco.Main;
 import cn.zbx1425.mtrsteamloco.MainClient;
+import cn.zbx1425.mtrsteamloco.mvapi.MVComponent;
 import cn.zbx1425.mtrsteamloco.render.integration.MtrModelRegistryUtil;
 import cn.zbx1425.sowcer.math.Vector3f;
 import cn.zbx1425.sowcer.model.Model;
@@ -12,9 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.datafixers.util.Pair;
-import mtr.mappings.Text;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
-import mtr.mappings.Utilities;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
@@ -53,9 +52,9 @@ public class RailModelRegistry {
         TREE = new Tree.Root<>("rail.mtrsteamloco.type");
 
         //
-        register("", new RailModelProperties("", Text.translatable("rail.mtrsteamloco.default"), null, 1f, 0f, null, "group.mtrsteamloco.builtin"));
+        register("", new RailModelProperties("", MVComponent.translatable("rail.mtrsteamloco.default").copy(), null, 1f, 0f, null, "group.mtrsteamloco.builtin"));
         // This is pulled from registry and shouldn't be shown
-        register("null", new RailModelProperties("null", Text.translatable("rail.mtrsteamloco.hidden"), null, Float.MAX_VALUE, 0f, null, "group.mtrsteamloco.builtin"));
+        register("null", new RailModelProperties("null", MVComponent.translatable("rail.mtrsteamloco.hidden").copy(), null, Float.MAX_VALUE, 0f, null, "group.mtrsteamloco.builtin"));
 
         try {
             RawModel railNodeRawModel = MainClient.modelManager.loadRawModel(resourceManager,
@@ -100,7 +99,7 @@ public class RailModelRegistry {
     }
 
     private static final RailModelProperties EMPTY_PROPERTY = new RailModelProperties(
-            "null", Text.literal(""), null, 1f, 0, null, "group.mtrsteamloco.builtin"
+            "null", MVComponent.EMPTY.copy(), null, 1f, 0, null, "group.mtrsteamloco.builtin"
     );
 
     public static RailModelProperties getProperty(String key) {
@@ -154,6 +153,6 @@ public class RailModelRegistry {
         }
         String group = obj.has("group") ? obj.get("group").getAsString() : baseGroup;
 
-        return new RailModelProperties(key, Text.translatable(obj.get("name").getAsString()), rawModel, repeatInterval, yOffset, script, group);
+        return new RailModelProperties(key, MVComponent.translatable(obj.get("name").getAsString()).copy(), rawModel, repeatInterval, yOffset, script, group);
     }
 }
