@@ -27,7 +27,6 @@ import org.graalvm.polyglot.PolyglotAccess;
 import org.graalvm.polyglot.proxy.ProxyObject;
 import org.graalvm.polyglot.io.FileSystem;
 import org.graalvm.polyglot.io.FileSystem.Selector;
-import com.oracle.truffle.polyglot.FileSystems;
 
 import java.io.IOException;
 import java.util.*;

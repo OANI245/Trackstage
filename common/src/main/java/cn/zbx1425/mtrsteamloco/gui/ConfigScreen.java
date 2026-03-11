@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 #if MC_VERSION >= "12000"
 #endif
 import net.minecraft.client.gui.screens.Screen;
+import org.mtr.mod.config.Config;
 
 import java.util.List;
 
@@ -42,10 +43,10 @@ public final class ConfigScreen {
         common.addEntry(entryBuilder
                 .startBooleanToggle(
                         Text.translatable("gui.mtrsteamloco.config.client.rail3d"),
-                        ClientConfig.enableRail3D
+                        Config.getClient().getDefaultRail3D()
                 ).setSaveConsumer(checked -> {
-                    boolean needReload = ClientConfig.enableRail3D != checked;
-                    ClientConfig.enableRail3D = checked;
+                    boolean needReload = Config.getClient().getDefaultRail3D() != checked;
+                    Config.getClient().toggleDefaultRail3D();
                     if (needReload) {
                         Minecraft.getInstance().levelRenderer.allChanged();
                     }
@@ -62,7 +63,7 @@ public final class ConfigScreen {
                 ).setSaveConsumer(checked -> {
                     boolean needReload = ClientConfig.enableRailDeform != checked;
                     ClientConfig.enableRailDeform = checked;
-                    if (ClientConfig.enableRail3D && needReload) {
+                    if (Config.getClient().getDefaultRail3D() && needReload) {
                         Minecraft.getInstance().levelRenderer.allChanged();
                     }
                 }).setDefaultValue(true)

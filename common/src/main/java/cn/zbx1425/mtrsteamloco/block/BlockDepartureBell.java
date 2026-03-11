@@ -2,7 +2,7 @@ package cn.zbx1425.mtrsteamloco.block;
 
 import cn.zbx1425.mtrsteamloco.Main;
 import cn.zbx1425.mtrsteamloco.mvapi.MVSimpleCodecHorizontalDirectionalBlock;
-import cn.zbx1425.mtrsteamloco.mvapi.mtr3port.block.MVBlockHelper;
+import cn.zbx1425.mtrsteamloco.mvapi.mtr.block.IBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -46,7 +46,7 @@ public class BlockDepartureBell extends MVSimpleCodecHorizontalDirectionalBlock 
         } else {
             final BlockState state = ctx.getLevel().getBlockState(ctx.getClickedPos().relative(oppositeFace));
             if (state.getBlock() instanceof BlockDepartureBell) {
-                facing = MVBlockHelper.getStatePropertySafe(state, FACING);
+                facing = IBlock.getStatePropertySafe(state, FACING);
             } else {
                 facing = ctx.getHorizontalDirection();
             }
@@ -56,7 +56,7 @@ public class BlockDepartureBell extends MVSimpleCodecHorizontalDirectionalBlock 
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext collisionContext) {
-        return MVBlockHelper.getVoxelShapeByDirection(4, 3, 0, 12, 11, 3, MVBlockHelper.getStatePropertySafe(state, FACING));
+        return IBlock.getVoxelShapeByDirection(4, 3, 0, 12, 11, 3, IBlock.getStatePropertySafe(state, FACING));
     }
 
     @Override

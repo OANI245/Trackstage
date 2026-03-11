@@ -1,31 +1,27 @@
 package cn.zbx1425.mtrsteamloco.sound;
 
-import mtr.data.TrainClient;
-import mtr.sound.TrainSoundBase;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import org.mtr.mapping.holder.BlockPos;
+import org.mtr.mod.sound.VehicleSoundBase;
 
-public class NoopTrainSound extends TrainSoundBase {
+public class NoopTrainSound extends VehicleSoundBase {
 
     public static final NoopTrainSound INSTANCE = new NoopTrainSound();
 
     @Override
-    public TrainSoundBase createTrainInstance(TrainClient trainClient) {
-        return this;
+    public void playMotorSound(BlockPos blockPos, float v, float v1, float v2, boolean b) {
     }
 
     @Override
-    public void playNearestCar(Level level, BlockPos blockPos, int i) {
-
+    public void dispose() {
     }
 
     @Override
-    public void playAllCars(Level level, BlockPos blockPos, int i) {
-
+    protected void playDoorSound(BlockPos blockPos, boolean b) {
     }
 
     @Override
-    public void playAllCarsDoorOpening(Level level, BlockPos blockPos, int i) {
-
+    protected double getDoorCloseSoundTime() {
+        return 0;
     }
 }

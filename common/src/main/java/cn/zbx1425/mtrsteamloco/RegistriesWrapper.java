@@ -4,7 +4,9 @@ import cn.zbx1425.mtrsteamloco.registries.RegistryObject;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -40,6 +42,10 @@ public interface RegistriesWrapper {
     void registerSoundEvent(String id, SoundEvent soundEvent);
 
     void registerParticleType(String id, ParticleType<?> particleType);
+
+    void sendPacketToServer(ResourceLocation location, FriendlyByteBuf pkt);
+
+    void sendPacketToClient(ServerPlayer player, ResourceLocation location, FriendlyByteBuf pkt);
 
     SimpleParticleType createParticleType(boolean overrideLimiter);
 

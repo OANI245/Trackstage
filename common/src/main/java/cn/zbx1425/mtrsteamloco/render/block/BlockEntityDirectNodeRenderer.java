@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mtr.RegistryObject;
 import mtr.block.BlockNode;
-import mtr.block.IBlock;
+import cn.zbx1425.mtrsteamloco.mvapi.mtr.block.IBlock;
 import mtr.client.ClientData;
 import mtr.data.TrainClient;
 import mtr.data.RailAngle;
@@ -45,6 +45,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import cn.zbx1425.mtrsteamloco.Main;
 import cn.zbx1425.sowcerext.reuse.ModelManager;
+import org.mtr.mod.config.Config;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -126,7 +127,7 @@ public class BlockEntityDirectNodeRenderer extends BlockEntityRendererMapper<Blo
                 MainClient.drawScheduler.enqueue(VERTICAL_MODEL, basePose, light);
             } else {
                 boolean b = blockEntity.getBlockState().getValue(BlockNode.IS_CONNECTED);
-                if (b && ClientConfig.enableRail3D) continue;
+                if (b && Config.getClient().getDefaultRail3D()) continue;
                 basePose.rotateY((float) Math.PI / 2F - (float) railAngle.angleRadians);
                 MainClient.drawScheduler.enqueue(b ? CONNECTION_MODEL : VERTICAL_MODEL, basePose, light);
             }

@@ -1,44 +1,17 @@
 package cn.zbx1425.mtrsteamloco.scripting;
 
-import cn.zbx1425.mtrsteamloco.Main;
 import cn.zbx1425.mtrsteamloco.MainClient;
 import cn.zbx1425.mtrsteamloco.scripting.util.client.*;
-import cn.zbx1425.mtrsteamloco.scripting.util.*;
-import cn.zbx1425.sowcer.math.Matrices;
 import mtr.mappings.UtilitiesClient;
-import cn.zbx1425.sowcer.math.Matrix4f;
-import cn.zbx1425.sowcer.math.Vector3f;
 import cn.zbx1425.sowcerext.model.RawMesh;
 import mtr.client.IDrawing;
 import cn.zbx1425.sowcerext.model.RawModel;
 import cn.zbx1425.sowcerext.model.ModelCluster;
 import cn.zbx1425.sowcerext.model.integration.RawMeshBuilder;
-import cn.zbx1425.sowcerext.util.ResourceUtil;
 import mtr.client.ClientData;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
-import mtr.block.IBlock;
-import net.minecraft.world.entity.player.Player;
-import cn.zbx1425.mtrsteamloco.scripting.util.WrappedEntity;
-import cn.zbx1425.mtrsteamloco.scripting.AbstractDrawCalls;
 import cn.zbx1425.mtrsteamloco.ClientConfig;
-import cn.zbx1425.mtrsteamloco.data.ShapeSerializer;
 import cn.zbx1425.mtrsteamloco.data.ConfigResponder;
-import net.minecraft.network.chat.Component;
-import com.google.gson.JsonObject;
-import cn.zbx1425.mtrsteamloco.CustomResources;
-import org.graalvm.polyglot.Value;
-import com.google.gson.GsonBuilder;
-import cn.zbx1425.sowcerext.reuse.ModelManager;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import org.mtr.mod.block.IBlock;
 
 public class ScriptHolderClient extends ScriptHolderBase {
     public ScriptHolderClient() {
@@ -70,7 +43,7 @@ public class ScriptHolderClient extends ScriptHolderBase {
         inject(DynamicModelHolder.class, "DynamicModelHolder");
 
         inject(ClientData.class, "MTRClientData");
-        inject(IBlock.class, "MVBlockHelper");
+        inject(IBlock.class, "IBlock");
         inject(UtilitiesClient.class, "UtilitiesClient");
         inject(IDrawing.class, "IDrawing");
 
@@ -116,7 +89,7 @@ public class ScriptHolderClient extends ScriptHolderBase {
         injects.put("DynamicModelHolder", DynamicModelHolder.class);
 
         injects.put("MTRClientData", ClientData.class);
-        injects.put("MVBlockHelper", MVBlockHelper.class);
+        injects.put("IBlock", IBlock.class);
         injects.put("UtilitiesClient", UtilitiesClient.class);
         injects.put("IDrawing", IDrawing.class);
 

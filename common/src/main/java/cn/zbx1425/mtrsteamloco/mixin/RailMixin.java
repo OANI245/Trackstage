@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.msgpack.core.MessagePacker;
 import org.msgpack.value.Value;
+import org.mtr.core.data.Rail;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -31,7 +32,6 @@ import cn.zbx1425.sowcer.math.Vector3f;
 import cn.zbx1425.mtrsteamloco.network.PacketUpdateRail;
 import io.netty.buffer.Unpooled;
 import mtr.data.MessagePackHelper;
-import mtr.data.Rail;
 import mtr.data.Rail.RenderRail;
 import mtr.data.RailAngle;
 import mtr.data.RailType;

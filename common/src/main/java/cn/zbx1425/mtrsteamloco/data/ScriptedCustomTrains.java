@@ -11,12 +11,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
-import mtr.client.*;
 import mtr.mappings.Utilities;
 import mtr.mappings.UtilitiesClient;
 import mtr.render.TrainRendererBase;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import org.mtr.mod.Init;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,10 +26,12 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import static org.mtr.mod.client.CustomResourceLoader.CUSTOM_RESOURCES_ID;
+
 public class ScriptedCustomTrains implements IResourcePackCreatorProperties, ICustomResources {
 
     public static void init(ResourceManager resourceManager) {
-        readResource(resourceManager, mtr.MTR.MOD_ID + ":" + CUSTOM_RESOURCES_ID + ".json", jsonConfig -> {
+        readResource(resourceManager, Init.MOD_ID + ":" + CUSTOM_RESOURCES_ID + ".json", jsonConfig -> {
             try {
                 jsonConfig.get(CUSTOM_TRAINS_KEY).getAsJsonObject().entrySet().forEach(entry -> {
                     try {

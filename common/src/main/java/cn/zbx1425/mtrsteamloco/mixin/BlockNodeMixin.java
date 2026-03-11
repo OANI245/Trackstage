@@ -1,13 +1,12 @@
 package cn.zbx1425.mtrsteamloco.mixin;
 
-import cn.zbx1425.mtrsteamloco.ClientConfig;
-import cn.zbx1425.mtrsteamloco.mvapi.MVSimpleCodecHorizontalDirectionalBlock;
-import cn.zbx1425.mtrsteamloco.mvapi.mtr3port.block.MVBlockHelper;
+import cn.zbx1425.mtrsteamloco.mvapi.mtr.block.IBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import org.mtr.core.data.TransportMode;
 import org.mtr.mod.block.BlockNode;
+import org.mtr.mod.config.Config;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,7 +32,7 @@ public abstract class BlockNodeMixin extends Block {
 
     @Override
     public RenderShape getRenderShape(BlockState state) {
-        if (ClientConfig.enableRail3D && MVBlockHelper.getStatePropertySafe(state, BlockNode.IS_CONNECTED.data)) {
+        if (Config.getClient().getDefaultRail3D() && IBlock.getStatePropertySafe(state, BlockNode.IS_CONNECTED.data)) {
             return renderShape;
         } else {
             return RenderShape.MODEL;

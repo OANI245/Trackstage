@@ -36,7 +36,7 @@ import cn.zbx1425.mtrsteamloco.network.PacketUpdateBlockEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import mtr.block.IBlock;
+import cn.zbx1425.mtrsteamloco.mvapi.mtr.block.IBlock;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.shapes.CollisionContext;

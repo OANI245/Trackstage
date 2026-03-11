@@ -2,6 +2,7 @@ package cn.zbx1425.mtrsteamloco.block;
 
 import cn.zbx1425.mtrsteamloco.Main;
 import cn.zbx1425.mtrsteamloco.mvapi.MVBlockEntity;
+import cn.zbx1425.mtrsteamloco.mvapi.MVBlockEntityComponent;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -10,16 +11,15 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.BlockPos;
 import cn.zbx1425.mtrsteamloco.data.RailAngleExtra;
-import mtr.data.Rail;
 import net.minecraft.server.level.ServerLevel;
 import cn.zbx1425.mtrsteamloco.network.PacketUpdateBlockEntity;
-import mtr.data.RailwayData;
 import cn.zbx1425.mtrsteamloco.mixin.RailwayDataAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import mtr.packet.PacketTrainDataGuiServer;
 import cn.zbx1425.mtrsteamloco.data.RailExtraSupplier;
+import org.mtr.core.data.Rail;
 import org.mtr.core.data.TransportMode;
+import org.mtr.core.tool.Angle;
 import org.mtr.mod.block.BlockNode;
 
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class BlockDirectNode extends BlockNode implements EntityBlock {
 
     public static class BlockEntityDirectNode extends MVBlockEntity {
         private double angle = -114514F;
-        private RailAngle railAngle = null;
+        private Angle railAngle = null;
 
         public static final String KEY_ANGLE = "angle";
 
@@ -94,7 +94,7 @@ public class BlockDirectNode extends BlockNode implements EntityBlock {
         }
 
         private void updateRailwayData() {
-            RailAngle angleFrom = getRailAngle();
+            Angle angleFrom = getRailAngle();
             BlockPos from = getBlockPos();
             if (!isBound() || !isConnected() || angleFrom == null || from == null) return;
 
@@ -138,16 +138,16 @@ public class BlockDirectNode extends BlockNode implements EntityBlock {
             return result;
         }
 
-        private static RailAngle getRailAngle(BlockPos pos, Level world) {
+        private static Angle getRailAngle(BlockPos pos, Level world) {
             BlockState state = world.getBlockState(pos);
             Block block = state.getBlock();
             BlockEntity entity = world.getBlockEntity(pos);
 
             if (!(block instanceof BlockNode)) return null;
             if (entity == null) {
-                return RailAngle.fromAngle(BlockNode.getAngle(state));
+                return Angle.fromAngle(BlockNode.getAngle(new org.mtr.mapping.holder.BlockState(state)));
             }
-            if (!(entity instanceof BlockEntityDirectNode)) return RailAngle.fromAngle(BlockNode.getAngle(state));
+            if (!(entity instanceof BlockEntityDirectNode)) return Angle.fromAngle(BlockNode.getAngle(new org.mtr.mapping.holder.BlockState(state)));
             return ((BlockEntityDirectNode) entity).getRailAngle();
         }
 
@@ -155,18 +155,18 @@ public class BlockDirectNode extends BlockNode implements EntityBlock {
             return angle;
         }
 
-        public RailAngle getRailAngle() {
+        public Angle getRailAngle() {
             return railAngle;
         }
 
         public boolean isBound() {
             return railAngle != null;
         }
-        
+
         @Override
-        public void readCompoundTag(CompoundTag compoundTag) {
-            if (compoundTag.contains(KEY_ANGLE)) {
-                double angle = compoundTag.getDouble(KEY_ANGLE);
+        public void loadTag(MVBlockEntityComponent tag) {
+            if (tag.contains(KEY_ANGLE)) {
+                double angle = tag.getDouble(KEY_ANGLE);
                 railAngle = RailAngleExtra.fromDegrees(angle);
                 if (angle != this.angle) {
                     this.angle = angle;
@@ -179,9 +179,9 @@ public class BlockDirectNode extends BlockNode implements EntityBlock {
         }
 
         @Override
-        public void writeCompoundTag(CompoundTag compoundTag) {
+        public void saveTag(MVBlockEntityComponent tag) {
             if (!isBound()) return;
-            compoundTag.putDouble(KEY_ANGLE, angle);
+            tag.putDouble(KEY_ANGLE, angle);
         }
 
         public static double normalize(double angle) {

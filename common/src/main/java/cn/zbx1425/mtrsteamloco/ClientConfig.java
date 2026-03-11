@@ -1,5 +1,6 @@
 package cn.zbx1425.mtrsteamloco;
 
+import cn.zbx1425.mtrsteamloco.mvapi.MVComponent;
 import cn.zbx1425.mtrsteamloco.render.ShadersModHandler;
 import cn.zbx1425.mtrsteamloco.data.ConfigResponder;
 import com.google.gson.GsonBuilder;
@@ -13,8 +14,8 @@ import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.impl.builders.TextDescriptionBuilder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.client.gui.screens.Screen;
-import mtr.mappings.Text;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import org.mtr.mod.config.Config;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,7 +35,6 @@ public class ClientConfig {
     public static boolean enableScriptDebugOverlay = false;
 
     public static boolean enableRailDeform = true;
-    public static boolean enableRail3D = true;
     public static boolean enableRailRender = true;
     public static boolean enableTrainRender = true;
     public static boolean enableTrainSound = true;
@@ -66,7 +66,9 @@ public class ClientConfig {
             translucentSort = getOrDefault(configObject, "translucentSort", JsonElement::getAsBoolean, false);
             enableScriptDebugOverlay = getOrDefault(configObject, "enableScriptDebugOverlay", JsonElement::getAsBoolean, false);
             enableRailDeform = getOrDefault(configObject, "enableRailDeform", JsonElement::getAsBoolean, true);
-            enableRail3D = getOrDefault(configObject, "enableRail3D", JsonElement::getAsBoolean, true);
+            if (configObject.has("enableRail3D") && (Config.getClient().getDefaultRail3D() && !getOrDefault(configObject, "enableRail3D", JsonElement::getAsBoolean, true))) {
+                Config.getClient().toggleDefaultRail3D();
+            }
             enableRailRender = getOrDefault(configObject, "enableRailRender", JsonElement::getAsBoolean, true);
             enableTrainRender = getOrDefault(configObject, "enableTrainRender", JsonElement::getAsBoolean, true);
             enableTrainSound = getOrDefault(configObject, "enableTrainSound", JsonElement::getAsBoolean, true);
@@ -118,7 +120,7 @@ public class ClientConfig {
             return enableRailRender ? 1 : 0;
         } else {
             return enableRailRender
-                    ? (enableRail3D ? (ShadersModHandler.canInstance() && !enableRailDeform ? 3 : 2) : 1)
+                    ? (Config.getClient().getDefaultRail3D() ? (ShadersModHandler.canInstance() && !enableRailDeform ? 3 : 2) : 1)
                     : 0;
         }
     }
@@ -136,7 +138,6 @@ public class ClientConfig {
             configObject.addProperty("translucentSort", translucentSort);
             configObject.addProperty("enableScriptDebugOverlay", enableScriptDebugOverlay);
             configObject.addProperty("enableRailDeform", enableRailDeform);
-            configObject.addProperty("enableRail3D", enableRail3D);
             configObject.addProperty("enableRailRender", enableRailRender);
             configObject.addProperty("enableTrainRender", enableTrainRender);
             configObject.addProperty("enableTrainSound", enableTrainSound);
@@ -197,16 +198,16 @@ public class ClientConfig {
         }
         List<AbstractConfigListEntry> entries = new ArrayList<>();
         if (!usedKeys.isEmpty()) {
-            entries.add(builder.startTextDescription(Text.translatable("gui.mtrsteamloco.config.client.custom_config.engaged")).build());
+            entries.add(builder.startTextDescription(MVComponent.translatable("gui.mtrsteamloco.config.client.custom_config.engaged")).build());
             for (String key : usedKeys) {
                 entries.addAll(customResponders.get(key).getListEntries(customConfigs, builder, screenSupplier));
             }
         }
         // if (!unusedKeys.isEmpty()) {
         if (false) {
-            entries.add(builder.startTextDescription(Text.translatable("gui.mtrsteamloco.config.client.custom_config.untapped")).build());
+            entries.add(builder.startTextDescription(MVComponent.translatable("gui.mtrsteamloco.config.client.custom_config.untapped")).build());
             for (String key : unusedKeys) {
-                entries.add(builder.startTextDescription(Text.literal(key + " : " + customConfigs.get(key))).build());
+                entries.add(builder.startTextDescription(MVComponent.text(key + " : " + customConfigs.get(key))).build());
             };
         }
         return entries;
@@ -349,21 +350,21 @@ public class ClientConfig {
         @Override
         public void getListEntries(List<AbstractConfigListEntry> entries, ConfigEntryBuilder builder, Supplier<Screen> screenSupplier) {
             entries.add(
-                builder.startFloatField(Text.translatable("gui.mtrsteamloco." + tooltipKey + ".min"), min)
+                builder.startFloatField(MVComponent.translatable("gui.mtrsteamloco." + tooltipKey + ".min"), min)
                 .setDefaultValue(defaultMin)
                 .setSaveConsumer(value -> min = value)
                 .build()
             );
 
             entries.add(
-                builder.startFloatField(Text.translatable("gui.mtrsteamloco." + tooltipKey + ".max"), max)
+                builder.startFloatField(MVComponent.translatable("gui.mtrsteamloco." + tooltipKey + ".max"), max)
                 .setDefaultValue(defaultMax)
                 .setSaveConsumer(value -> max = value)
                 .build()
             );
 
             entries.add(
-                builder.startIntField(Text.translatable("gui.mtrsteamloco." + tooltipKey + ".step"), step)
+                builder.startIntField(MVComponent.translatable("gui.mtrsteamloco." + tooltipKey + ".step"), step)
                 .setDefaultValue(defaultStep)
                 .setSaveConsumer(value -> step = value)
                 .build()

@@ -14,7 +14,7 @@ import cn.zbx1425.sowcerext.model.ModelCluster;
 import cn.zbx1425.sowcerext.model.integration.BufferSourceProxy;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mtr.RegistryObject;
-import mtr.block.IBlock;
+import cn.zbx1425.mtrsteamloco.mvapi.mtr.block.IBlock;
 import mtr.client.ClientData;
 import mtr.data.TrainClient;
 import mtr.mappings.BlockEntityRendererMapper;
